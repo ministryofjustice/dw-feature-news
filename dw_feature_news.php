@@ -158,7 +158,7 @@ class htFeatureNews extends WP_Widget {
 
       <div class="category-block more-in-news">
         <p>
-          <a title='More in news' class="small" href="<?php echo $siteurl; ?>/newspage/">More in news</a>
+          <a title='More in news' class="small" href="<?php echo $siteurl; ?>/newspage/">See all</a>
         </p>
       </div>
 
