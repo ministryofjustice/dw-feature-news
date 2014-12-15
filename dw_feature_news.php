@@ -90,8 +90,6 @@ class htFeatureNews extends WP_Widget {
       echo'<div class="news-item '.$container_class.'">';
 
 			$thistitle = get_the_title($news->ID);
-			$newspod = new Pod ( 'news' , $news->ID );
-			$newspod->display('title');
 			$thisURL=get_permalink($news->ID);
 
 			if ($newsgrid[$k]=="L"){
