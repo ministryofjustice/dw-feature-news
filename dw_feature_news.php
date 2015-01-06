@@ -1,16 +1,15 @@
 <?php
 /*
 Plugin Name: DW Feature news
-Plugin URI: http://www.helpfultechnology.com
-Description: Display feature news
-Author: Luke Oatham
-Version: 3.0.7
-Author URI: http://www.helpfultechnology.com
+Description: Display featured news
+Version: 0.2
+
+Branched from HT widget
 */
 
 class htFeatureNews extends WP_Widget {
   function htFeatureNews() {
-    parent::WP_Widget(false, 'HT Feature news', array('description' => 'Display feature news stories'));
+    parent::WP_Widget(false, 'DW Feature news', array('description' => 'Display feature news stories'));
   }
 
   function widget($args, $instance) {
@@ -22,6 +21,8 @@ class htFeatureNews extends WP_Widget {
     $listitems = intval($instance['listitems']);
 
     $containerclasses = $instance['containerclasses'];
+
+    $newstype = $instance['newstype'];
 
     global $post;
     echo $before_widget;
@@ -58,7 +59,7 @@ class htFeatureNews extends WP_Widget {
       'posts_per_page' => $totalstories,
       'meta_query'=>array(array(
         'key'=>'news_listing_type',
-        'value'=>0,
+        'value'=>$newstype,
       ))
     );
 
@@ -177,6 +178,7 @@ class htFeatureNews extends WP_Widget {
     $instance['thumbnailitems'] = strip_tags($new_instance['thumbnailitems']);
     $instance['listitems'] = strip_tags($new_instance['listitems']);
     $instance['containerclasses'] = strip_tags($new_instance['containerclasses']);
+    $instance['newstype'] = strip_tags($new_instance['newstype']);
     return $instance;
   }
 
@@ -187,6 +189,7 @@ class htFeatureNews extends WP_Widget {
     $thumbnailitems = esc_attr($instance['thumbnailitems']);
     $listitems = esc_attr($instance['listitems']);
     $containerclasses = esc_attr($instance['containerclasses']);
+    $newstype = esc_attr($instance['newstype']);
     ?>
      <p>
       <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:'); ?></label>
@@ -207,6 +210,13 @@ class htFeatureNews extends WP_Widget {
       <label for="<?php echo $this->get_field_id('containerclasses'); ?>"><?php _e('Extra container classes'); ?></label>
       <input class="widefat" id="<?php echo $this->get_field_id('containerclasses'); ?>" name="<?php echo $this->get_field_name('containerclasses'); ?>" type="text" value="<?php echo $containerclasses; ?>" /><br><br>
 
+      <label for="<?php echo $this->get_field_id('newstype'); ?>"><?php _e('News type'); ?></label>
+      <select class="widefat" id="<?php echo $this->get_field_id('newstype'); ?>" name="<?php echo $this->get_field_name('newstype'); ?>">
+          <option value='0' <?=$newstype==0?'selected':'' ?>>Regular</option>
+          <option value='1' <?=$newstype==1?'selected':'' ?>>Need to know</option>
+          <option value='2' <?=$newstype==2?'selected':'' ?>>Featured</option>
+      </select>
+
     </p>
 
     <?php
@@ -215,5 +225,7 @@ class htFeatureNews extends WP_Widget {
 }
 
 add_action('widgets_init', create_function('', 'return register_widget("htFeatureNews");'));
+
+include_once('custom_featured_widget.php');
 
 ?>
