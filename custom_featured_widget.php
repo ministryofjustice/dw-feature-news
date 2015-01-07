@@ -30,8 +30,8 @@ class CustomFeatureNews extends WP_Widget {
     $siteurl = site_url();
 
     // Get stored story IDs (set in customizer)
-    $first_story  = get_option('first_story');
-    $second_story = get_option('second_story');
+    $featured_story1 = get_option('featured_story1');
+    $featured_story2 = get_option('featured_story2');
 
     //display remaining stories
     $cquery = array(
@@ -39,7 +39,7 @@ class CustomFeatureNews extends WP_Widget {
       'order'           => 'DESC',
       'post_type'       => 'news',
       'posts_per_page'  => 2,
-      'post__in'        => array($first_story,$second_story)
+      'post__in'        => array($featured_story1,$featured_story2)
     );
 
     $news =new WP_Query($cquery);
