@@ -35,8 +35,8 @@ class CustomFeatureNews extends WP_Widget {
 
     //display remaining stories
     $cquery = array(
-      'orderby'         => 'post_date',
-      'order'           => 'DESC',
+      'orderby'         => 'post__in',
+      'order'           => 'ASC',
       'post_type'       => 'news',
       'posts_per_page'  => 2,
       'post__in'        => array($featured_story1,$featured_story2)
