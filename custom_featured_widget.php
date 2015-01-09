@@ -79,6 +79,8 @@ class CustomFeatureNews extends WP_Widget {
 
       echo "<div class='media-body'>";
 
+      echo '<p class="excerpt">'.$thisexcerpt.'</p>';
+
       echo "</div>";
 
       echo'</div>';
