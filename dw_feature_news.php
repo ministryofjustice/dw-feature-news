@@ -51,6 +51,25 @@ class htFeatureNews extends WP_Widget {
 
     $siteurl = site_url();
 
+    // Get stored story IDs (set in customizer)
+    $featured_story1 = get_option('featured_story1');
+    $featured_story2 = get_option('featured_story2');
+    $need_to_know_story1 = get_option('need_to_know_story1');
+    $need_to_know_story2 = get_option('need_to_know_story2');
+    $need_to_know_story3 = get_option('need_to_know_story3');
+
+    /**
+     * Array of stories to be hidden in main news widget
+     * @var array
+     */
+    $hidden_stories = array(
+      $featured_story1,
+      $featured_story2,
+      $need_to_know_story1,
+      $need_to_know_story2,
+      $need_to_know_story3
+    );
+
     //display remaining stories
     $cquery = array(
 			'orderby' => 'post_date',
@@ -60,7 +79,8 @@ class htFeatureNews extends WP_Widget {
       'meta_query'=>array(array(
         'key'=>'news_listing_type',
         'value'=>$newstype,
-      ))
+      )),
+      'post__not_in' => $hidden_stories
     );
 
 		$news =new WP_Query($cquery);
